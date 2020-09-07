@@ -47,7 +47,7 @@ public class RedesController {
 				} catch (IOException e) {
 					e.printStackTrace();
 			}
-		}else{
+		}else{if (os.contains("Linux")) {
 			StringBuffer buffer2= new StringBuffer();
 			try {
 				boolean ipv4 = false;
@@ -82,6 +82,7 @@ public class RedesController {
 		}
 		}
 	}
+	}
 	public void pingTest ( String os){
 		if(os.contains("Windows")) {
 			try {
@@ -103,7 +104,7 @@ public class RedesController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else{
+		}else{if (os.contains("Linux")) {
 			try {
 				Process p = Runtime.getRuntime().exec("ping -c 10 www.google.com.br");
 				InputStream fluxo = p.getInputStream();
@@ -112,7 +113,7 @@ public class RedesController {
 				String linha = buffer.readLine();
 				while (linha != null) {
 					if (linha.contains("avg")) {
-						System.out.println("média= "+linha.substring(31,36));
+						System.out.println("média= "+linha.substring(30,36)+"ms");
 						}
 						linha = buffer.readLine();
 				}
@@ -124,4 +125,5 @@ public class RedesController {
 			}
 		}
 	}
+}
 }
