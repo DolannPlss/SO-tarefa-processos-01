@@ -51,7 +51,7 @@ public class RedesController {
 			StringBuffer buffer2= new StringBuffer();
 			try {
 				boolean ipv4 = false;
-				Process p = Runtime.getRuntime().exec("ipconfig");
+				Process p = Runtime.getRuntime().exec("ifconfig");
 				InputStream fluxo = p.getInputStream();
 				InputStreamReader leitor = new InputStreamReader(fluxo);
 				BufferedReader buffer = new BufferedReader(leitor);
@@ -59,10 +59,10 @@ public class RedesController {
 				buffer2.append(linha);
 				buffer2.append("\n");
 				while (linha != null) {
-					if (linha.contains("IPv4")) {
+					if (linha.contains("inet")) {
 						ipv4 = true;
 					}
-						if (linha.contains("Gateway")) {
+						if (linha.contains("TX errors")) {
 							if (ipv4 == true) {
 									System.out.println(buffer2);
 								ipv4 = false;
@@ -105,14 +105,14 @@ public class RedesController {
 			}
 		}else{
 			try {
-				Process p = Runtime.getRuntime().exec("ping -n 10 www.google.com.br");
+				Process p = Runtime.getRuntime().exec("ping -c 10 www.google.com.br");
 				InputStream fluxo = p.getInputStream();
 				InputStreamReader leitor = new InputStreamReader(fluxo);
 				BufferedReader buffer = new BufferedReader(leitor);
 				String linha = buffer.readLine();
 				while (linha != null) {
-					if (linha.contains("M‚dia")) {
-						System.out.println("média= "+linha.substring(40,45));
+					if (linha.contains("avg")) {
+						System.out.println("média= "+linha.substring(31,36));
 						}
 						linha = buffer.readLine();
 				}
